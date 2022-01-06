@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
     //Initialize decks state
     const [decks, setDecks] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
     //Fetch and load the decks when the page loads.
     useEffect(() => {
@@ -14,6 +15,7 @@ export default function HomePage() {
         async function loadDecks() {
             const response = await listDecks(abortSwitch.signal);
             setDecks(response);
+            setLoaded(true);
             return () => abortSwitch.abort();
         }
         loadDecks();
@@ -32,19 +34,17 @@ export default function HomePage() {
     //At this point, we have valid decks, map them out.
     const list = decks.map((deck) => <HomeCard key={deck.id} deck={deck} handleDelete={handleDelete} />)
 
-    if (Object.keys(decks).length) {
-        return (
-            <div className="container">
-                <Link to="/decks/new" className="btn btn-secondary">Create Deck</Link>
-                <hr />
-                <section>{list}</section>
-            </div>
-        )
-    } else {
-        return (
-            <div className="container">
-                <p>Please add a deck.</p>
-            </div>
-        )
-    }
+    return (
+        <div className="container">
+            <Link to="/decks/new" className="btn btn-secondary">Create Deck</Link>
+            <hr />
+            {
+                (loaded && decks.length === 0)
+                ? <p>Please add a deck.</p>
+                : (Object.keys(list).length)
+                    ? <section>{list}</section>
+                    : <p>Loading...</p>
+            }
+        </div>
+    )
 }
