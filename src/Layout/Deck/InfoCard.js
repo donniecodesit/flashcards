@@ -10,7 +10,7 @@ export default function InfoCard({ id, front, back }) {
         const prompt = window.confirm("Are you sure you want to delete this card? It will be removed.")
         if (prompt) {
             await deleteCard(id);
-            history.push("/");
+            history.go({url})
         }
     };
 
