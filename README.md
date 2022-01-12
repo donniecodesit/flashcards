@@ -4,7 +4,7 @@ This was built using React, utilizing functional programming with JavaScript and
 
 ## How to install
 1. Either clone, fork, or download and unzip this repository to a new folder on your computer.
-2. Open a terminal inside of the new folder and run `npm install`, which will install all of the modules.
+2. Open a terminal inside of the new folder and run `npm install`, which will install all of the required modules.
 3. Afterwards, run `npm run start` and go to `localhost:3000` in your browser. Enjoy! :)
 
 ### Notes
